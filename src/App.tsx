@@ -1,4 +1,10 @@
 import React from 'react';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Link
+} from "react-router-dom";
 
 
 import { useState, useContext, createContext } from "react";
@@ -14,11 +20,6 @@ function App() {
         <div className="App">
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
-                <TopLevelComponent
-                    firstParagraph="This is the first paragraph"
-                    secondParagraph="This is the second paragraph"
-                    imageLink={nasalogo}
-                />
                 <a
                     className="App-link"
                     href="https://reactjs.org"
@@ -27,6 +28,30 @@ function App() {
                 >
                     Learn React
                 </a>
+                <Router>
+                    <ul>
+                        <li><Link to="/complextree"> Comlex Tree </Link></li>
+                        <li><Link to="/simple"> Simple Tree </Link></li>
+                    </ul>
+                    <Routes>
+                        <Route path="/complextree"
+                               element={
+                                    <TopLevelComponent
+                                    firstParagraph="This is the first paragraph"
+                                    secondParagraph="This is the second paragraph"
+                                    imageLink={nasalogo}
+                                    />}
+                        />
+                        <Route path="/simple"
+                               element={
+                                   <NasaData
+                                       firstParagraph="This is the first paragraph"
+                                       secondParagraph="This is the second paragraph"
+                                       imageLink={nasalogo}
+                                   />}
+                        />
+                    </Routes>
+                </Router>
             </header>
         </div>
     );
@@ -86,6 +111,7 @@ function NasaData(props: {firstParagraph: string; secondParagraph: string, image
             <p>{props.firstParagraph}</p>
             <p>{props.secondParagraph}</p>
             <img src={props.imageLink} alt="nasa" width={100}/>
+            <Counter/>
             </body>
         </div>
     );
