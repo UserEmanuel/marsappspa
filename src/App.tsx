@@ -1,16 +1,10 @@
-import React from 'react';
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Link
-} from "react-router-dom";
-
-
-import { useState, useContext, createContext } from "react";
+import React, {createContext} from 'react';
+import {BrowserRouter as Router, Link, Route, Routes} from "react-router-dom";
 import logo from './logo.svg';
 import nasalogo from './r.png'
 import './App.css';
+import TopLevelComponent from "./TopLevelComponent";
+import NasaData from "./NasaData";
 
 type NewType = [number, (a: number) => void];
 export const CounterContext = createContext<NewType>(undefined as unknown as NewType);
@@ -30,11 +24,11 @@ function App() {
                 </a>
                 <Router>
                     <ul>
-                        <li><Link to="/complextree"> Comlex Tree </Link></li>
-                        <li><Link to="/simple"> Simple Tree </Link></li>
+                        <li><Link to="tree/complextree"> Comlex Tree </Link></li>
+                        <li><Link to="tree/simple"> Simple Tree </Link></li>
                     </ul>
                     <Routes>
-                        <Route path="/complextree"
+                        <Route path="tree/complextree"
                                element={
                                     <TopLevelComponent
                                     firstParagraph="This is the first paragraph"
@@ -42,7 +36,7 @@ function App() {
                                     imageLink={nasalogo}
                                     />}
                         />
-                        <Route path="/simple"
+                        <Route path="tree/simple"
                                element={
                                    <NasaData
                                        firstParagraph="This is the first paragraph"
@@ -53,84 +47,6 @@ function App() {
                     </Routes>
                 </Router>
             </header>
-        </div>
-    );
-}
-
-function TopLevelComponent(props: {firstParagraph: string; secondParagraph: string, imageLink: string}) {
-    const [count, setCount] = useState(parseInt(localStorage.getItem('count') as string));
-
-    const handleClick = (num: number) => {
-        localStorage.setItem('count', num.toString());
-        setCount(num);
-    }
-
-    return (
-        <CounterContext.Provider value={[count, handleClick]}>
-            <div className="TopLevelComponent">
-                <title>NASA is cool</title>
-                <body>
-                <p>{props.firstParagraph}</p>
-                <p>{props.secondParagraph}</p>
-                <img src={props.imageLink} alt="nasa" width={100}/>
-                <ButtonComponent/>
-                <CounterComponent/>
-                </body>
-            </div>
-        </CounterContext.Provider>
-    );
-}
-
-function ButtonComponent() {
-    const [count, handleClick] = useContext(CounterContext);
-
-    return (
-        <div className="ButtonComponent">
-            <button onClick={() => handleClick(count + 1)}>
-                Click here
-            </button>
-        </div>
-    );
-}
-
-function CounterComponent() {
-    const [count, ] = useContext(CounterContext);
-
-    return (
-        <div className="CounterComponent">
-            <p>You clicked {count} times</p>
-        </div>
-    );
-}
-
-function NasaData(props: {firstParagraph: string; secondParagraph: string, imageLink: string}) {
-    return (
-        <div className="NasaData">
-            <title>NASA is cool</title>
-            <body>
-            <p>{props.firstParagraph}</p>
-            <p>{props.secondParagraph}</p>
-            <img src={props.imageLink} alt="nasa" width={100}/>
-            <Counter/>
-            </body>
-        </div>
-    );
-}
-
-function Counter() {
-    const [count, setCount] = useState(parseInt(localStorage.getItem('count') as string));
-
-    const handleClick = (num: number) => {
-        localStorage.setItem('count', num.toString());
-        setCount(num);
-    }
-
-    return (
-        <div>
-            <p>You clicked {count} times</p>
-            <button onClick={() => handleClick(count + 1)}>
-                Click here
-            </button>
         </div>
     );
 }
