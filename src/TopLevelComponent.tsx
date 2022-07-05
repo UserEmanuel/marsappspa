@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import {CounterContext} from "./App";
 
-import ButtonComponent2 from "./ButtonComponent";
+import ButtonComponent from "./ButtonComponent";
 import CounterComponent from "./CounterComponent";
 
 export function TopLevelComponent(props: { firstParagraph: string; secondParagraph: string, imageLink: string }) {
     let localVar = localStorage.getItem('count');
-    let finalVar = localVar == null ? 0 : parseInt(localVar);
+    let finalVar = !localVar ? 0 : parseInt(localVar);
 
     const [count, setCount] = useState(finalVar);
 
@@ -23,7 +23,7 @@ export function TopLevelComponent(props: { firstParagraph: string; secondParagra
                 <p>{props.firstParagraph}</p>
                 <p>{props.secondParagraph}</p>
                 <img src={props.imageLink} alt="nasa" width={100}/>
-                <ButtonComponent2/>
+                <ButtonComponent/>
                 <CounterComponent/>
                 </body>
             </div>
